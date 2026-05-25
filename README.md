@@ -9,3 +9,14 @@ Login created
 methods created for login
 
 Unit test done
+
+## Part 2 Main class
+Class updated : 
+Welcome message created
+Menu feature added
+
+## Message class
+methods for messages created
+
+Message class unit tesat done
+
