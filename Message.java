@@ -95,7 +95,79 @@ public class Message {
          }
         messageList.add(msg);
     }
+//POE PART 3
+    ArrayList<Message> sentMessages = new ArrayList<>();//Message array lsit
+    ArrayList<Message> storedMessages = new ArrayList<>();
+    ArrayList<Message> disregardedMessages = new ArrayList<>();
 
+    public void addMessage(Message message) {
+        switch (message.status) {
+            case "Sent" -> sentMessages.add(message);
+            case "Stored" -> storedMessages.add(message);
+            case "Disregarded" -> disregardedMessages.add(message);
+        }
+    }
+//display sent messages
+    public void displaySentMessages() {
+        if (sentMessages.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No messages sent yet.");
+            return;
+        }
+
+        StringBuilder sb = new StringBuilder("Sent Messages:\n");
+        for (Message m : sentMessages) {
+            sb.append(m.toString()).append("\n\n");
+        }
+        JOptionPane.showMessageDialog(null, sb.toString());
+    }
+//display the longest message stored
+    public void displayLongestMessage() {
+        Message longest = null;
+        for (Message m : sentMessages) {
+            if (longest == null || m.msg.length() > longest.msg.length()) {
+                longest = m;
+            }
+        }
+
+        if (longest != null)
+            JOptionPane.showMessageDialog(null, "Longest Message:\n" + longest.msg);
+        else
+            JOptionPane.showMessageDialog(null, "No messages found.");
+    }
+// search by message id
+    public void searchByID(String id) { 
+        for (Message m : sentMessages) {
+            if (m.messageID.equals(id)) {
+                JOptionPane.showMessageDialog(null, "Message Found:\n" + m.toString());
+                return;
+            }
+        }
+        JOptionPane.showMessageDialog(null, "Message ID not found.");
+    }
+// searching for the reciepient
+    public void searchByRecipient(String recipient) { 
+        StringBuilder sb = new StringBuilder();
+        for (Message m : sentMessages) {
+            if (m.receiver.equals(recipient)) {
+                sb.append(m.msg).append("\n");
+            }
+        }     JOptionPane.showMessageDialog(null, "Messages sent to " + recipient + ":\n" + sb);
+else{
+            JOptionPane.showMessageDialog(null, "No messages sent to this recipient.");
+    }
+}
+    
+    
+//delete message using message hash
+    public void deleteByMessageHash(String messageHash) { 
+        for (int i = 0; i < sentMessages.size(); i++) {
+            if (sentMessages.get(i).messageHash.equals(messageHash)) {
+                sentMessages.remove(i);
+                JOptionPane.showMessageDialog(null, "Message deleted successfully.");
+                return;
+            }
+        }
+        JOptionPane.showMessageDialog(null, "Message hash not found.");
     }
     
     
